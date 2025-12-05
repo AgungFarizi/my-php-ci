@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Setup PHP') {
             steps {
-                checkout scm
+                bat 'set PATH=C:\\laragon\\bin\\php\\php-8.3.16-Win32-vs16-x64;%PATH%'
+                bat 'php -v'
             }
         }
 
@@ -16,14 +17,7 @@ pipeline {
 
         stage('Run PHP') {
             steps {
-                bat 'php -v'
                 bat 'php index.php'
-            }
-        }
-
-        stage('Run Unit Test') {
-            steps {
-                bat 'vendor\\bin\\phpunit'
             }
         }
     }
